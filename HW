@@ -1,0 +1,66 @@
+#include <iostream>
+using namespace std;
+
+int empty_jug(int x) {
+    x = 0;
+    return x;
+}
+// we gotta use a generic BFS algorithm.   https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
+
+int main() {
+    int arr[] = {4, 7, 0};
+    int limit = 10;
+    for (int i = 0; arr[i] < 3; i++) {
+        if (arr[i + 2] > 10) {
+            arr[i] = arr[i + 2] - 1;
+            cout << arr[2] << endl;
+        }
+
+        //   arr[2] += arr[1];
+        //   arr[2] += arr[0];
+        //   arr[0] = 1;
+        //   arr[1] = 0;
+        //   cout << arr[2] << endl;
+        //if (arr[2] > 10) {
+        //    arr[2] = arr[2] - 1;
+        //    cout << arr[2] << endl;
+    }
+    empty_jug(arr[0]);
+    empty_jug(arr[1]);
+    cout << empty_jug(arr[0]) << endl;
+    cout << empty_jug(arr[1]) << endl;
+}
+/* for i2<=10
+         i2 = i2+i1;
+         i2 = i0+i2;// shouldn't be more than 10
+         i0 = 1;
+         i1 = 0;
+        update_arr ={1,0,10}
+        empty(i3)
+        update_arr = {1,0,0}
+        put i0 as i3
+        update_arr = {0,0,1}
+        add_wtr = {4,7,1}
+        repeat the process above:
+        updatre_arr = {4, 0, 8}
+        update_arr = {2, 0, 10} --> if arr[2] == full{
+        empty(i3)}
+       [ if arr[2] == empty:
+          move a[1] to a[2]
+          move a[0] to a[2]
+          if arr[2] > 10
+            a[0] = arr[2] - 10 
+            a[2] = 10
+            if arr[2] == full --> empty
+          if arr [0] & arr[1] == empty --> fill
+          if arr[0] & arr[1] == full --> repeat the process
+
+        update_arr 
+        ]
+
+
+int empty(x){
+    x = 0;
+        return x;
+    }
+    */
