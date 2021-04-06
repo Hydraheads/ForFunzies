@@ -1,0 +1,169 @@
+#include<iostream>
+#include<math.h>
+#include<vector>
+#include<string>
+#include<map>
+using namespace std;
+
+//Team Member: Ying Zhou, Sasha Kazharskaya, Andrew Perez
+int recurse(int * q, int dep){
+     cout << "depth: " << dep/3+1 << endl;
+     //cout << "(" << q[dep] << q[dep+1] << q[dep+2] << ")" << endl;
+    for(int i=0; i<dep; i=i+3) {
+        if(q[i] == q[dep] && q[i+1] == q[dep+1] && q[i+2] == q[dep+2]) {
+            cout << "nope" << endl;
+            return 0;
+        }
+    }
+    if(q[dep] == 2 || q[dep+1] == 2){
+        for(int i=0; i<dep; i=i+3) {
+            cout << "(" << q[i] << q[i+1] << q[i+2] << ")" << endl;
+        }
+        // print every element
+            cout << "yup";
+        return 0;
+    }
+    int dep2 = dep+3;
+    if(q[dep] < 10 && q[dep+1] != 0){
+        int calc = q[dep] + q[dep+1];
+        if (calc > 10) {
+            q[dep2] = 10;
+            q[dep2+1] = calc - 10;
+        } else {
+            q[dep2] = calc;
+            q[dep2+1] = 0;
+        }
+        q[dep2+2] = q[dep+2];
+        cout << "(" << q[dep2] << ", " << q[dep2+1] << ", "  << q[dep2+2] << ")" << endl;
+        dep= dep+3;
+        recurse(q, dep);
+    } if(q[dep] < 10 && q[dep+2] != 0){
+        int calc = q[dep] + q[dep+2];
+        if (calc > 10) {
+            q[dep2] = 10;
+            q[dep2+2] = calc - 10;
+        } else {
+            q[dep2] = calc;
+            q[dep2+2] = 0;
+        }
+        q[dep2+1] = q[dep+1];
+        cout << "(" << q[dep2] << ", " << q[dep2+1] << ", "  << q[dep2+2] << ")" << endl;
+        dep= dep+3;
+        recurse(q, dep);
+    } if(q[dep+1] < 7 && q[dep] != 0){
+        int calc = q[dep+1] + q[dep];
+        if (calc > 7) {
+            q[dep2+1] = 7;
+            q[dep2] = calc - 7;
+        } else {
+            q[dep2+1] = calc;
+            q[dep2] = 0;
+        }
+        q[dep2+2] = q[dep+2];
+        cout << "(" << q[dep2] << ", " << q[dep2+1] << ", "  << q[dep2+2] << ")" << endl;
+        dep= dep+3;
+        recurse(q, dep);
+    } if(q[dep+1] < 7 && q[dep+2] != 0){
+        int calc = q[dep+1] + q[dep+2];
+        if (calc > 7) {
+            q[dep2+1] = 7;
+            q[dep2+2] = calc - 7;
+        } else {
+            q[dep2+1] = calc;
+            q[dep2+2] = 0;
+        }
+        q[dep2] = q[dep];
+        cout << "(" << q[dep2] << ", " << q[dep2+1] << ", "  << q[dep2+2] << ")" << endl;
+        dep= dep+3;
+        recurse(q, dep);
+    }  if(q[dep+2] < 4 && q[dep] != 0){
+        int calc = q[dep+2] + q[dep];
+        if (calc > 4) {
+            q[dep2+2] = 4;
+            q[dep2] = calc - 4;
+        } else {
+            q[dep2+2] = calc;
+            q[dep2] = 0;
+        }
+        q[dep2+1] = q[dep+1];
+        cout << "(" << q[dep2] << ", " << q[dep2+1] << ", "  << q[dep2+2] << ")" << endl;
+        dep= dep+3;
+        recurse(q, dep);
+    }  if(q[dep+2] < 4 && q[dep+1] != 0){
+        int calc = q[dep+2] + q[dep+1];
+        if (calc > 4) {
+            q[dep2+2] = 4;
+            q[dep2+1] = calc - 4;
+        } else {
+            q[dep2+2] = calc;
+            q[dep2+1] = 0;
+        }
+        q[dep2] = q[dep];
+        cout << "(" << q[dep2] << ", " << q[dep2+1] << ", "  << q[dep2+2] << ")" << endl;
+        dep= dep+3;
+        recurse(q, dep);
+    } 
+    
+    // if(q[dep]+q[dep+1] <= 10 && q[dep] != 10){
+    //     q[dep+3] = q[dep] + q[dep+1];
+    //     q[dep+4] = 0;
+    //     q[dep+5] = q[dep+2];
+    //     cout << "(" << q[dep] << q[dep+1] << q[dep+2] << ")" << endl;
+    //     cout << "1st";
+    //     dep= dep+3;
+    //     recurse(q, dep);
+    // } if(q[dep]+q[dep+2] <= 10){
+    //     q[dep+3] = q[dep] + q[dep+2];
+    //     q[dep+4] = q[dep+1];
+    //     q[dep+5] = 0;
+    //     cout << "(" << q[dep] << q[dep+1] << q[dep+2] << ")" << endl;
+    //     cout << "2nd";
+    //     dep= dep+3;
+    //     recurse(q, dep);
+    // } if(q[dep]+q[dep+1] <= 7){
+    //     q[dep+3] = 0;
+    //     q[dep+4] = q[dep] + q[dep+1];
+    //     q[dep+5] = q[dep+2];
+    //     cout << "(" << q[dep] << q[dep+1] << q[dep+2] << ")" << endl;
+    //     cout << "3rd";
+    //     dep= dep+3;
+    //     recurse(q, dep);
+    // }  if(q[dep]+q[dep+2] <= 4){
+    //     q[dep+3] = 0;
+    //     q[dep+4] = q[dep+1];
+    //     q[dep+5] = q[dep] + q[dep+2];
+    //     cout << "(" << q[dep] << q[dep+1] << q[dep+2] << ")" << endl;
+    //     cout << "4th";
+    //     dep= dep+3;
+    //     recurse(q, dep);
+    // }  if(q[dep+1]+q[dep+2] <= 4){
+    //     q[dep+3] = q[dep];
+    //     q[dep+4] = 0;
+    //     q[dep+5] = q[dep+1] + q[dep+2];
+    //     cout << "(" << q[dep] << q[dep+1] << q[dep+2] << ")" << endl;
+    //     cout << "5th";
+    //     dep= dep+3;
+    //     recurse(q, dep);
+    // }  if(q[dep+1]+q[dep+2] <= 7){
+    //     q[dep+3] = q[dep];
+    //     q[dep+4] = q[dep+1] + q[dep+2];
+    //     q[dep+5] = 0;
+    //     cout << "(" << q[dep] << q[dep+1] << q[dep+2] << ")" << endl;
+    //     cout << "6th";
+    //     dep= dep+3;
+    //     recurse(q, dep);
+    // }
+    return 0;
+}
+
+
+int main() {
+    int a = 0;
+    int b = 7;
+    int c = 4;
+    int q[100];
+    q[0] = a;
+    q[1] = b;
+    q[2] = c;
+    recurse(q,0);
+}
